@@ -15,6 +15,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { PasswordInput } from '../ui/password-input'
+import { CircleUserIcon } from 'lucide-react'
 
 interface LoginFormData {
   username: string
@@ -23,8 +25,8 @@ interface LoginFormData {
 
 export default function LoginForm() {
   const loginSchema = z.object({
-    username: z.string().min(2).max(50),
-    password: z.string().min(10).max(20),
+    username: z.string().min(1).max(10),
+    password: z.string(),
   })
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -49,8 +51,9 @@ export default function LoginForm() {
               <FormControl>
                 <Input
                   className='h-[56px] bg-scyGray-100 border-scyGray-400'
-                  placeholder='아이디를 입력하세요.'
+                  placeholder='ID'
                   {...field}
+                  suffix={<CircleUserIcon />}
                 />
               </FormControl>
               <FormMessage />
@@ -64,9 +67,9 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel className='text-scyGray-900'>비밀번호</FormLabel>
               <FormControl>
-                <Input
+                <PasswordInput
                   className='h-[56px] bg-scyGray-100 border-scyGray-400'
-                  placeholder='비밀번호를 입력하세요.'
+                  placeholder='Password'
                   {...field}
                 />
               </FormControl>
